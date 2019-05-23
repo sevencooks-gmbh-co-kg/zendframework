@@ -227,7 +227,11 @@ abstract class AbstractSql implements SqlInterface
             if (isset($paramSpecs[$position]['combinedby'])) {
                 $multiParamValues = array();
                 foreach ($paramsForPosition as $multiParamsForPosition) {
-                    $ppCount = count($multiParamsForPosition);
+                    if (is_array($multiParamsForPosition)) {
+                        $ppCount = count($multiParamsForPosition);
+                    } else {
+                        $ppCount = 1;
+                    }
                     if (!isset($paramSpecs[$position][$ppCount])) {
                         throw new Exception\RuntimeException(sprintf(
                             'A number of parameters (%d) was found that is not supported by this specification',
