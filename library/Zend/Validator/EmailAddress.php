@@ -529,7 +529,7 @@ class EmailAddress extends AbstractValidator
     protected function idnToAscii($email)
     {
         if (extension_loaded('intl')) {
-            return (idn_to_ascii($email) ?: $email);
+            return (idn_to_ascii($email, 0, INTL_IDNA_VARIANT_UTS46) ?: $email);
         }
         return $email;
     }
@@ -542,7 +542,7 @@ class EmailAddress extends AbstractValidator
     protected function idnToUtf8($email)
     {
         if (extension_loaded('intl')) {
-            return idn_to_utf8($email);
+            return idn_to_utf8($email, 0, INTL_IDNA_VARIANT_UTS46);
         }
         return $email;
     }
